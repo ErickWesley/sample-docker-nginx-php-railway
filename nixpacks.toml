@@ -1,4 +1,10 @@
-# nixpacks.toml
+[phases.setup]
+nixPkgs = ["php84", "php84Extensions.mongodb", "php84Extensions.redis", "grpc"]
 
-[phase.name]
-nixPkgs = ['...', 'grpc']
+[phases.install]
+cmds = [
+    "composer install --optimize-autoloader --no-scripts --no-interaction"
+]
+
+[start]
+cmd = "php-fpm -D && nginx -g 'daemon off;'"
